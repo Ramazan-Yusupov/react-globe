@@ -50,10 +50,10 @@ function Scene({ globe, stars }: { globe: ThreeGlobe; stars: Float32Array }) {
       <color attach="background" args={["#020604"]} />
       <fog attach="fog" args={["#020604", 210, 480]} />
 
-      <ambientLight color="#cfe6ff" intensity={0.95} />
+      <ambientLight color="#cfe6ff" intensity={1} />
       <directionalLight
         color="#fff4d6"
-        intensity={2.2}
+        intensity={3.2}
         position={[160, 120, 220]}
       />
       <pointLight
@@ -102,15 +102,9 @@ export function NeonGlobe({ className, markers, connections }: NeonGlobeProps) {
   const stars = useMemo(() => createStars(1100, 420), []);
 
   return (
-    <div
-      className={[
-        "relative overflow-hidden",
-        "bg-[radial-gradient(circle_at_top,_rgba(32,90,55,0.28),_transparent_36%),linear-gradient(180deg,_#04110a_0%,_#020604_55%,_#010302_100%)]",
-        className ?? "",
-      ].join(" ")}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,_rgba(118,255,181,0.2),_transparent_62%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,_rgba(49,255,146,0.14),_transparent_34%)]" />
+    <div className={["relative overflow-hidden", className ?? ""].join(" ")}>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 " />
+      <div className="pointer-events-none absolute inset-0 " />
 
       <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
         <Scene globe={globe} stars={stars} />
