@@ -28,9 +28,7 @@ export function useGlobeConfig(
     globeMaterial.transparent = true;
 
     globe
-      .globeImageUrl(
-        "https://unpkg.com/three-globe/example/img/earth-night.jpg",
-      )
+      .globeImageUrl("/earth-night.jpg")
       .showAtmosphere(true)
       .atmosphereColor("#4dff95")
       .atmosphereAltitude(0.18)
