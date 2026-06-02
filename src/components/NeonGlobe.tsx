@@ -50,11 +50,11 @@ function Scene({ globe, stars }: { globe: ThreeGlobe; stars: Float32Array }) {
       <color attach="background" args={["#020604"]} />
       <fog attach="fog" args={["#020604", 210, 480]} />
 
-      <ambientLight color="#7dffd0" intensity={0.6} />
+      <ambientLight color="#cfe6ff" intensity={0.95} />
       <directionalLight
-        color="#b5ffd6"
-        intensity={1.4}
-        position={[120, 80, 160]}
+        color="#fff4d6"
+        intensity={2.2}
+        position={[160, 120, 220]}
       />
       <pointLight
         color="#3dff88"

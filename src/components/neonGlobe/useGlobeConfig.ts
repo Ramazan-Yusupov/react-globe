@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import ThreeGlobe from "three-globe";
-import { CITY_LIGHTS, countries } from "./data";
+import { countries } from "./data";
 import { createFlagObject } from "./renderers";
-import type { GlobeConnection, GlobeMarker, GlobePoint } from "./types";
+import type { GlobeConnection, GlobeMarker } from "./types";
 
 export function useGlobeConfig(
   markers: GlobeMarker[],
@@ -18,30 +18,19 @@ export function useGlobeConfig(
     [],
   );
 
-  const globePoints = useMemo<GlobePoint[]>(
-    () => [
-      ...CITY_LIGHTS,
-      ...markers.map((marker) => ({
-        lat: marker.lat,
-        lng: marker.lng,
-        color: marker.color ?? "#5bff9a",
-        altitude: 0.012,
-        radius: 0.34,
-      })),
-    ],
-    [markers],
-  );
-
   useEffect(() => {
     const globeMaterial = globe.globeMaterial() as THREE.MeshPhongMaterial;
-    globeMaterial.color = new THREE.Color("#030b07");
-    globeMaterial.emissive = new THREE.Color("#05100a");
-    globeMaterial.emissiveIntensity = 0.9;
+    globeMaterial.color = new THREE.Color("#1f3142");
+    globeMaterial.emissive = new THREE.Color("#1f3142");
+    globeMaterial.emissiveIntensity = 0.45;
     globeMaterial.shininess = 18;
-    globeMaterial.opacity = 0.94;
+    globeMaterial.opacity = 1;
     globeMaterial.transparent = true;
 
     globe
+      .globeImageUrl(
+        "https://unpkg.com/three-globe/example/img/earth-night.jpg",
+      )
       .showAtmosphere(true)
       .atmosphereColor("#4dff95")
       .atmosphereAltitude(0.18)
@@ -50,17 +39,9 @@ export function useGlobeConfig(
       .polygonsData(countries.features)
       .polygonCapColor(() => "rgba(0,0,0,0)")
       .polygonSideColor(() => "rgba(0,0,0,0)")
-      .polygonStrokeColor(() => "rgba(97,255,164,0.5)")
+      .polygonStrokeColor(() => "rgba(58,140,98,0.22)")
       .polygonAltitude(0.004)
       .polygonsTransitionDuration(0)
-      .pointsData(globePoints)
-      .pointLat("lat")
-      .pointLng("lng")
-      .pointColor("color")
-      .pointAltitude("altitude")
-      .pointRadius("radius")
-      .pointsMerge(true)
-      .pointsTransitionDuration(0)
       .arcsData(connections)
       .arcStartLat((connection: GlobeConnection) => connection.start.lat)
       .arcStartLng((connection: GlobeConnection) => connection.start.lng)
@@ -85,7 +66,7 @@ export function useGlobeConfig(
       .objectAltitude((marker: GlobeMarker) => marker.altitude ?? 0.055)
       .objectFacesSurface(true)
       .objectThreeObject((marker: GlobeMarker) => createFlagObject(marker));
-  }, [connections, globe, globePoints, markers]);
+  }, [connections, globe, markers]);
 
   return { globe };
 }

@@ -5,6 +5,7 @@ declare module "three-globe" {
     constructor(config?: { waitForGlobeReady?: boolean; animateIn?: boolean });
 
     globeMaterial(): THREE.Material;
+    globeImageUrl(value: string): this;
     showAtmosphere(value: boolean): this;
     atmosphereColor(value: string): this;
     atmosphereAltitude(value: number): this;
